@@ -5,13 +5,14 @@ const posts = [
     id: 1,
     authorId: 1,
     title: "Lorem ipsum",
-    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
   },
   {
     id: 2,
     authorId: 2,
     title: "Whatever",
-    body: "Whatever happens happens, do I look like I give a shit.",
+    content: "Whatever happens happens, do I look like I give a shit.",
   },
 ];
 
@@ -37,6 +38,17 @@ app.get("/api/posts", (req, res) => {
 app.get("/api/posts/:id", (req, res) => {
   const post = posts.filter((post) => post.id.toString() === req.params.id);
   res.status(200).json(post[0]);
+});
+
+app.post("/api/posts", (req, res) => {
+  const post = {
+    id: req.body.id,
+    authorId: req.body.authorId,
+    title: req.body.title,
+    content: req.body.content,
+  };
+  posts.push(post);
+  res.status(200).json(post);
 });
 
 app.get("/api/authors/:id", (req, res) => {

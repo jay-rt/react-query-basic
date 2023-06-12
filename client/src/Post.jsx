@@ -10,7 +10,7 @@ const Post = ({ id }) => {
   const authorQuery = useQuery({
     queryKey: ["authors", postQuery?.data?.authorId],
     enabled: postQuery?.data?.authorId != null,
-    queryFn: () => getAuthor(postQuery.data.id),
+    queryFn: () => getAuthor(postQuery.data.authorId),
   });
 
   if (postQuery.status === "loading") return <h1>Loading...</h1>;
@@ -24,13 +24,13 @@ const Post = ({ id }) => {
         {postQuery.data.title} <br />
         <small>
           {authorQuery.isLoading
-            ? "Loading User..."
+            ? "Loading Author..."
             : authorQuery.isError
-            ? "Error Loading User..."
+            ? "Error Loading Author..."
             : authorQuery.data.name}
         </small>
       </h1>
-      <p>{postQuery.data.body}</p>
+      <p>{postQuery.data.content}</p>
     </>
   );
 };
